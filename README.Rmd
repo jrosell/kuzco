@@ -1,0 +1,49 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# kuzco
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+{kuzco} is a simple vision boilerplate built for ollama in R, on top of {ollamar}. {kuzco} is designed as a computer vision assistant, giving local models guidance on classifying images and return structured data. The goal is to standardize outputs for image classification and use LLMs as an alternative option to keras or torch. ({elmer} support TBD)
+
+## Installation
+
+You can install the development version of kuzco like so:
+
+``` r
+devtools::install_github("frankiethull/kuzco")
+```
+
+## Example
+
+This is a basic example which shows you how to use kuzco.
+```{r example}
+library(kuzco)
+library(ollamar)
+library(dplyr)
+
+llm_results <- llm_image_classification(llm_model = "llava-phi3", image = "inst/img/test_img.jpg")
+```
+
+```{r}
+llm_results |> tibble::as_tibble()
+```
+
+```{r}
+llm_results |> str()
+```
+
