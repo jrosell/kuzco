@@ -11,5 +11,10 @@ This package is a designed to use local models for image classification. The pro
 \author{
 \strong{Maintainer}: Frank Hull \email{frankiethull@gmail.com}
 
+Other contributors:
+\itemize{
+  \item Johannes Breuer \email{johannes.breuer@gesis.org} (\href{https://orcid.org/0000-0001-5906-7873}{ORCID}) [contributor]
+}
+
 }
 \keyword{internal}

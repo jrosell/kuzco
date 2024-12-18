@@ -1,8 +1,10 @@
 Package: kuzco
 Title: LLM image classification using ollama in R
-Version: 0.0.0.900
-Authors@R: 
-    person("Frank", "Hull", , "frankiethull@gmail.com", role = c("aut", "cre"))
+Version: 0.0.0.910
+Authors@R: c(
+    person("Frank", "Hull", , "frankiethull@gmail.com", role = c("aut", "cre")),
+    person("Johannes", "Breuer", , "johannes.breuer@gesis.org", role = c("ctb"), comment = c(ORCID = "0000-0001-5906-7873"))
+    )
 Description: This package is a designed to use local models for image classification. The prompts and functions are designed to take an input image and supply classification information as an output.
 License: MIT + file LICENSE
 Encoding: UTF-8
