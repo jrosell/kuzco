@@ -9,8 +9,8 @@
 llm_image_classification <- \(llm_model = "llava-phi3",
                               image = "inst/img/test_img.jpg"){
 
-  system_prompt <- base::readLines("inst/prompts/system-prompt.md") |> paste(collapse = "\n")
-  image_prompt  <- base::readLines("inst/prompts/image-prompt.md")  |> paste(collapse = "\n")
+  system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt.md")) |> paste(collapse = "\n")
+  image_prompt  <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/image-prompt.md"))  |> paste(collapse = "\n")
 
 
   llm_json <- ollamar::generate(
@@ -21,21 +21,21 @@ llm_image_classification <- \(llm_model = "llava-phi3",
     output = "text"
   )
 
-      llm_parsed <- llm_json |>
-        jsonlite::parse_json()
+  llm_parsed <- llm_json |>
+    jsonlite::parse_json()
 
-      llm_df <- llm_parsed |>
-        as.data.frame() |>
-        dplyr::select(image_classification:image_colors)
+  llm_df <- llm_parsed |>
+    as.data.frame() |>
+    dplyr::select(image_classification:image_colors)
 
-      image_proba_nms <- llm_parsed$image_proba_names
-      image_proba_val <- llm_parsed$image_proba_values
+  image_proba_nms <- llm_parsed$image_proba_names
+  image_proba_val <- llm_parsed$image_proba_values
 
-        llm_df <- llm_df |>
-          dplyr::mutate(
-            image_proba_names  = list(image_proba_nms),
-            image_proba_values = list(image_proba_val)
-          )
+  llm_df <- llm_df |>
+    dplyr::mutate(
+      image_proba_names  = list(image_proba_nms),
+      image_proba_values = list(image_proba_val)
+    )
 
   return(llm_df)
 
