@@ -7,7 +7,8 @@
 #' @return a df with image_classification, primary_object, secondary_object, image_description, image_colors, image_proba_names, image_proba_values
 #' @export
 llm_image_classification <- \(llm_model = "llava-phi3",
-                              image = "inst/img/test_img.jpg"){
+                              image = "inst/img/test_img.jpg",
+                              ...){
 
   system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt.md")) |> paste(collapse = "\n")
   image_prompt  <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/image-prompt.md"))  |> paste(collapse = "\n")
@@ -18,7 +19,8 @@ llm_image_classification <- \(llm_model = "llava-phi3",
     prompt = image_prompt,
     images = image,
     system = system_prompt,
-    output = "text"
+    output = "text",
+    ...
   )
 
   llm_parsed <- llm_json |>
