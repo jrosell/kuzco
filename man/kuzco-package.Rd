@@ -6,6 +6,8 @@
 \alias{kuzco-package}
 \title{kuzco: LLM image classification using ollama in R}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 This package is a designed to use local models for image classification. The prompts and functions are designed to take an input image and supply classification information as an output.
 }
 \author{
