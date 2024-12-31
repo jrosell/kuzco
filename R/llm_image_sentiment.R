@@ -7,7 +7,7 @@
 #' @return a df with image_sentiment, image_score, sentiment_description, image_keywords
 #' @export
 llm_image_sentiment <- \(llm_model = "llava-phi3",
-                         image = "inst/img/test_img.jpg",
+                         image = system.file("img/test_img.jpg", package = "kuzco"),
                          ...){
 
   system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt-sentiment.md")) |> paste(collapse = "\n")

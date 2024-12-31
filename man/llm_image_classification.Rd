@@ -6,7 +6,7 @@
 \usage{
 llm_image_classification(
   llm_model = "llava-phi3",
-  image = "inst/img/test_img.jpg",
+  image = system.file("img/test_img.jpg", package = "kuzco"),
   ...
 )
 }

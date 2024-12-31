@@ -8,7 +8,7 @@
 #' @return a df with object_recognized, object_count, object_description, object_location
 #' @export
 llm_image_recognition <- \(llm_model = "llava-phi3",
-                           image = "inst/img/test_img.jpg",
+                           image = system.file("img/test_img.jpg", package = "kuzco"),
                            recognize_object = "face",
                            ...){
 

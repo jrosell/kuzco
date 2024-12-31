@@ -7,7 +7,7 @@
 #' @return a df with image_classification, primary_object, secondary_object, image_description, image_colors, image_proba_names, image_proba_values
 #' @export
 llm_image_classification <- \(llm_model = "llava-phi3",
-                              image = "inst/img/test_img.jpg",
+                              image = system.file("img/test_img.jpg", package = "kuzco"),
                               ...){
 
   system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt-classification.md")) |> paste(collapse = "\n")

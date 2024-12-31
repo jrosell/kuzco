@@ -7,7 +7,7 @@
 #' @return a df with text
 #' @export
 llm_image_extract_text <- \(llm_model = "llava-phi3",
-                           image = "inst/img/text_img.jpg",
+                           image = system.file("img/text_img.jpg", package = "kuzco"),
                            ...){
 
   system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt-extraction.md")) |> paste(collapse = "\n")

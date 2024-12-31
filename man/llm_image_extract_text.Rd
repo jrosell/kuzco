@@ -6,7 +6,7 @@
 \usage{
 llm_image_extract_text(
   llm_model = "llava-phi3",
-  image = "inst/img/text_img.jpg",
+  image = system.file("img/text_img.jpg", package = "kuzco"),
   ...
 )
 }
