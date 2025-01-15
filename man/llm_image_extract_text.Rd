@@ -16,6 +16,8 @@ llm_image_extract_text(
 \item{image}{a local image path that has a jpeg, jpg, or png}
 
 \item{...}{a pass through for other generate args and model args like temperature. set the temperature to 0 for more deterministic output}
+
+\item{backend}{either 'ellmer' or 'ollamar'}
 }
 \value{
 a df with text

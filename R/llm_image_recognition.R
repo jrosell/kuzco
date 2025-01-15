@@ -73,11 +73,11 @@ ollamar_image_recognition <- \(llm_model     = llm_model,
 
 }
 
-ellmer_image_sentiment <- \(llm_model     = llm_model,
-                            image_prompt  = image_prompt,
-                            image         = image,
-                            system_prompt = system_prompt,
-                            ...){
+ellmer_image_recognition <- \(llm_model     = llm_model,
+                              image_prompt  = image_prompt,
+                              image         = image,
+                              system_prompt = system_prompt,
+                              ...){
 
 
   # add a switch for other llm providers ?
