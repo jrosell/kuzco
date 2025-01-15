@@ -8,7 +8,8 @@
 #' @return a df with text
 #' @export
 llm_image_extract_text <- \(llm_model = "llava-phi3",
-                           image = system.file("img/text_img.jpg", package = "kuzco"),
+                           image      = system.file("img/text_img.jpg", package = "kuzco"),
+                           backend    = 'ellmer',
                            ...){
 
   system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt-extraction.md")) |> paste(collapse = "\n")
@@ -16,7 +17,7 @@ llm_image_extract_text <- \(llm_model = "llava-phi3",
 
   if(backend == 'ollamar'){
 
-    kuzco:::ollamar_image_text_extract(llm_model     = llm_model,
+    kuzco:::ollamar_image_extract_text(llm_model     = llm_model,
                                        image_prompt  = image_prompt,
                                        image         = image,
                                        system_prompt = system_prompt,
@@ -24,7 +25,7 @@ llm_image_extract_text <- \(llm_model = "llava-phi3",
 
   } else if(backend == 'ellmer'){
 
-    kuzco:::ellmer_image_text_extract(llm_model     = llm_model,
+    kuzco:::ellmer_image_extract_text(llm_model     = llm_model,
                                       image_prompt  = image_prompt,
                                       image         = image,
                                       system_prompt = system_prompt,
