@@ -109,6 +109,6 @@ ellmer_image_classification <- \(llm_model     = llm_model,
     type = image_summary
   )
 
-  return(llm_df)
+  return(llm_df$img_class)
 
 }
