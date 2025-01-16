@@ -8,6 +8,7 @@ llm_image_recognition(
   llm_model = "llava-phi3",
   image = system.file("img/test_img.jpg", package = "kuzco"),
   recognize_object = "face",
+  backend = "ellmer",
   ...
 )
 }
@@ -17,6 +18,8 @@ llm_image_recognition(
 \item{image}{a local image path that has a jpeg, jpg, or png}
 
 \item{recognize_object}{an item you want to LLM to look for}
+
+\item{backend}{either 'ollamar' or 'ellmer'}
 
 \item{...}{a pass through for other generate args and model args like temperature. set the temperature to 0 for more deterministic output}
 }

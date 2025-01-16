@@ -7,6 +7,7 @@
 llm_image_extract_text(
   llm_model = "llava-phi3",
   image = system.file("img/text_img.jpg", package = "kuzco"),
+  backend = "ellmer",
   ...
 )
 }
@@ -14,6 +15,8 @@ llm_image_extract_text(
 \item{llm_model}{a local LLM model pulled from ollama}
 
 \item{image}{a local image path that has a jpeg, jpg, or png}
+
+\item{backend}{either 'ellmer' or 'ollamar'}
 
 \item{...}{a pass through for other generate args and model args like temperature. set the temperature to 0 for more deterministic output}
 }
