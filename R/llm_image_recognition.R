@@ -17,6 +17,12 @@ llm_image_recognition <- \(llm_model        = "llava-phi3",
   system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt-recognition.md")) |> paste(collapse = "\n")
   image_prompt  <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/image-prompt.md"))  |> paste(collapse = "\n")
 
+  image_prompt  <- base::gsub(
+    pattern = ":",
+    replacement = paste0(", the object to look for is a ", recognize_object, ":"),
+    x = image_prompt
+  )
+
   if(backend == 'ollamar'){
 
     kuzco:::ollamar_image_recognition(llm_model     = llm_model,
@@ -48,11 +54,6 @@ ollamar_image_recognition <- \(llm_model     = llm_model,
                                system_prompt = system_prompt,
                                ...){
 
-  image_prompt  <- base::gsub(
-    pattern = ":",
-    replacement = paste0(", the object to look for is a ", recognize_object, ":"),
-    x = image_prompt
-  )
 
   llm_json <- ollamar::generate(
     model  = llm_model,
