@@ -1,0 +1,8 @@
+[format]
+line-width = 135
+indent-width = 5
+indent-style = "tab"
+line-ending = "auto"
+persistent-line-breaks = true
+exclude = []
+default-exclude = true

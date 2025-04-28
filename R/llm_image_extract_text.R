@@ -7,93 +7,84 @@
 #'
 #' @return a df with text
 #' @export
-llm_image_extract_text <- \(llm_model = "llava-phi3",
-                           image      = system.file("img/text_img.jpg", package = "kuzco"),
-                           backend    = 'ellmer',
-                           ...){
+llm_image_extract_text <- \(
+	llm_model = "llava-phi3",
+	image = system.file("img/text_img.jpg", package = "kuzco"),
+	backend = 'ellmer',
+	...
+) {
+	system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt-extraction.md")) |> paste(collapse = "\n")
+	image_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/image-prompt.md")) |> paste(collapse = "\n")
 
-  system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt-extraction.md")) |> paste(collapse = "\n")
-  image_prompt  <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/image-prompt.md"))  |> paste(collapse = "\n")
-
-  if(backend == 'ollamar'){
-
-    kuzco:::ollamar_image_extract_text(llm_model     = llm_model,
-                                       image_prompt  = image_prompt,
-                                       image         = image,
-                                       system_prompt = system_prompt,
-                                       ...)
-
-  } else if(backend == 'ellmer'){
-
-    kuzco:::ellmer_image_extract_text(llm_model     = llm_model,
-                                      image_prompt  = image_prompt,
-                                      image         = image,
-                                      system_prompt = system_prompt,
-                                      ...)
-
-  } else {
-
-    print('incorrect backend selection')
-
-  }
-
+	if (backend == 'ollamar') {
+		kuzco:::ollamar_image_extract_text(
+			llm_model = llm_model,
+			image_prompt = image_prompt,
+			image = image,
+			system_prompt = system_prompt,
+			...
+		)
+	} else if (backend == 'ellmer') {
+		kuzco:::ellmer_image_extract_text(
+			llm_model = llm_model,
+			image_prompt = image_prompt,
+			image = image,
+			system_prompt = system_prompt,
+			...
+		)
+	} else {
+		print('incorrect backend selection')
+	}
 }
 
 
-ollamar_image_extract_text <- \(llm_model     = llm_model,
-                                image_prompt  = image_prompt,
-                                image         = image,
-                                system_prompt = system_prompt,
-                                ...){
+ollamar_image_extract_text <- \(
+	llm_model = llm_model,
+	image_prompt = image_prompt,
+	image = image,
+	system_prompt = system_prompt,
+	...
+) {
+	llm_json <- ollamar::generate(
+		model = llm_model,
+		prompt = image_prompt,
+		images = image,
+		system = system_prompt,
+		output = "text",
+		...
+	)
 
-  llm_json <- ollamar::generate(
-    model  = llm_model,
-    prompt = image_prompt,
-    images = image,
-    system = system_prompt,
-    output = "text",
-    ...
-  )
+	llm_parsed <- llm_json |>
+		jsonlite::parse_json()
 
-  llm_parsed <- llm_json |>
-    jsonlite::parse_json()
+	llm_df <- llm_parsed |>
+		as.data.frame() |>
+		dplyr::select("text" = dplyr::contains("text"))
 
-  llm_df <- llm_parsed |>
-    as.data.frame() |>
-    dplyr::select("text" = dplyr::contains("text"))
-
-  return(llm_df)
-
+	return(llm_df)
 }
 
-ellmer_image_extract_text <- \(llm_model     = llm_model,
-                               image_prompt  = image_prompt,
-                               image         = image,
-                               system_prompt = system_prompt,
-                               ...){
+ellmer_image_extract_text <- \(llm_model = llm_model, image_prompt = image_prompt, image = image, system_prompt = system_prompt, ...) {
+	# add a switch for other llm providers ?
+	chat <- ellmer::chat_ollama(
+		model = llm_model,
+		system_prompt = system_prompt,
+		...
+	)
 
+	type_image_class <- ellmer::type_object(
+		text = ellmer::type_string()
+	)
 
-  # add a switch for other llm providers ?
-  chat <- ellmer::chat_ollama(
-    model         = llm_model,
-    system_prompt = system_prompt,
-    ...
-  )
+	image_summary <- ellmer::type_object(
+		img_class = ellmer::type_array(items = type_image_class)
+	)
 
+	llm_df <- chat$extract_data(
+		image_prompt,
+		ellmer::content_image_file(image),
+		type = image_summary
+	)
 
-  type_image_class <- ellmer::type_object(
-    text        = ellmer::type_string()
-  )
-
-  image_summary <- ellmer::type_object(
-    img_class = ellmer::type_array(items = type_image_class)
-  )
-
-  llm_df <- chat$extract_data(
-    image_prompt, ellmer::content_image_file(image),
-    type = image_summary
-  )
-
-  return(llm_df$img_class)
-
+	return(llm_df$img_class)
 }
