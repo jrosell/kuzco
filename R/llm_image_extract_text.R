@@ -80,7 +80,7 @@ ellmer_image_extract_text <- \(llm_model = llm_model, image_prompt = image_promp
 		img_class = ellmer::type_array(items = type_image_class)
 	)
 
-	llm_df <- chat$extract_data(
+	llm_df <- chat$chat_structured(
 		image_prompt,
 		ellmer::content_image_file(image),
 		type = image_summary
