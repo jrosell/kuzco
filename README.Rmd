@@ -47,7 +47,7 @@ test_img <- file.path(system.file(package = "kuzco"), "img/test_img.jpg")
 
 ### llm for image classification:
 ```{r}
-llm_results <- llm_image_classification(llm_model = "llava-phi3", image = test_img, 
+llm_results <- llm_image_classification(llm_model = "qwen2.5vl", image = test_img, 
                                         backend = 'ollamar')
 ```
 
@@ -61,14 +61,14 @@ llm_results |> str()
 
 ### llm for image sentiment:
 ```{r}
-llm_emotion <- llm_image_sentiment(llm_model = "llava-phi3", image = test_img)
+llm_emotion <- llm_image_sentiment(llm_model = "qwen2.5vl", image = test_img)
 
 llm_emotion |> str()
 ```
 
 ### llm for image recognition:
 ```{r}
-llm_detection <- llm_image_recognition(llm_model = "llava-phi3", 
+llm_detection <- llm_image_recognition(llm_model = "qwen2.5vl", 
                                        image = test_img,
                                        recognize_object = "nose",
                                        backend  = "ollamar")
