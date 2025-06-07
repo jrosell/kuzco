@@ -1,0 +1,158 @@
+# getting-started
+
+
+``` r
+library(kuzco)
+```
+
+## a typical workflow for a single image
+
+#### define a path to an image
+
+we have an image within kuzco to get started. But feel free to
+substitute this image with any image of your choice.
+
+``` r
+my_image <- file.path(system.file(package = "kuzco", "img/test_img.jpg"))
+```
+
+#### view the input image
+
+to make things easy, there is a new function in kuzco to make it easy to
+see an image, `view_image`.
+
+``` r
+my_image |>
+  view_image()
+```
+
+![](https://raw.githubusercontent.com/frankiethull/kuzco/main/inst/img/test_img.jpg)
+
+#### apply computer vision
+
+decide on an llm_image\_\* functtion to call: - llm_image_alt_text -
+llm_image_classification - llm_image_extract_text -
+llm_image_recognition - llm_image_sentiment
+
+``` r
+ llm_results <- 
+   my_image |>
+    llm_image_classification(llm_model = "qwen2.5vl")
+```
+
+#### view the output results
+
+easily view the results from kuzco:
+
+``` r
+llm_results |>
+  view_llm_results() |>
+  # for vignette purposes
+  gt::as_raw_html()
+```
+
+<div id="stpbpabxbz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  &#10;  
+
+<table class="gt_table" data-quarto-postprocess="true"
+data-quarto-disable-processing="false" data-quarto-bootstrap="false"
+style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: system-ui, &#39;Segoe UI&#39;, Roboto, Helvetica, Arial, sans-serif, &#39;Apple Color Emoji&#39;, &#39;Segoe UI Emoji&#39;, &#39;Segoe UI Symbol&#39;, &#39;Noto Color Emoji&#39;; display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 2px; border-top-color: #A8A8A8; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;"
+data-bgcolor="#FFFFFF">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead style="border-style: none;">
+<tr class="gt_heading"
+style="border-style: none; background-color: #FFFFFF; text-align: center; border-bottom-color: #FFFFFF; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3;"
+data-bgcolor="#FFFFFF" data-align="center">
+<th colspan="2"
+class="gt_heading gt_title gt_font_normal gt_bottom_border"
+style="text-align: center; border-style: none; font-size: 125%; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px; background-color: #FFFFFF; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; color: #B1501D; font-weight: bold;"
+data-bgcolor="#FFFFFF"><div style="display:inline;vertical-align: top;">
+LLM Computer Vision
+</div>
+<div style="display:inline;margin-left:10px">
+<img
+src="https://raw.githubusercontent.com/frankiethull/kuzco/main/man/figures/logo.png"
+style="height:30px;" />
+</div></th>
+</tr>
+<tr class="gt_col_headings"
+style="border-style: none; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3;">
+<th id="Context" class="gt_col_heading gt_columns_bottom_border gt_left"
+data-quarto-table-cell-role="th" scope="col"
+style="text-align: left; border-style: none; color: #FFFFFF; background-color: #7FC8CE; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden;"
+data-bgcolor="#7FC8CE" data-valign="bottom">Context</th>
+<th id="LLM-Response"
+class="gt_col_heading gt_columns_bottom_border gt_left"
+data-quarto-table-cell-role="th" scope="col"
+style="text-align: left; border-style: none; color: #FFFFFF; background-color: #7FC8CE; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden;"
+data-bgcolor="#7FC8CE" data-valign="bottom">LLM Response</th>
+</tr>
+</thead>
+<tbody class="gt_table_body"
+style="border-style: none; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3;">
+<tr style="border-style: none;">
+<td class="gt_row gt_left" headers="Context"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">Image Classification</td>
+<td class="gt_row gt_left" headers="LLM Response"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">dog</td>
+</tr>
+<tr style="border-style: none;">
+<td class="gt_row gt_left" headers="Context"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">Primary Object</td>
+<td class="gt_row gt_left" headers="LLM Response"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">pups head</td>
+</tr>
+<tr style="border-style: none;">
+<td class="gt_row gt_left" headers="Context"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">Secondary Object</td>
+<td class="gt_row gt_left" headers="LLM Response"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">fur</td>
+</tr>
+<tr style="border-style: none;">
+<td class="gt_row gt_left" headers="Context"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">Image Description</td>
+<td class="gt_row gt_left" headers="LLM Response"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">The image depicts a close-up of a small black and
+white dog, possibly a puppy, with striking facial markings. The dog's
+eyes are alert and dark, and its fur is a mix of black and white with
+subtle markings that give it a distinctive appearance.</td>
+</tr>
+<tr style="border-style: none;">
+<td class="gt_row gt_left" headers="Context"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">Image Colors</td>
+<td class="gt_row gt_left" headers="LLM Response"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">#000000, #FFFFFF, #00000080</td>
+</tr>
+<tr style="border-style: none;">
+<td class="gt_row gt_left" headers="Context"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">Image Proba Names</td>
+<td class="gt_row gt_left" headers="LLM Response"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">dog, puppy, fur, eyes, nose</td>
+</tr>
+<tr style="border-style: none;">
+<td class="gt_row gt_left" headers="Context"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">Image Proba Values</td>
+<td class="gt_row gt_left" headers="LLM Response"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden;"
+data-valign="middle">0.82, 0.10, 0.04, 0.03, 0.01</td>
+</tr>
+</tbody>
+</table>
+
+</div>
