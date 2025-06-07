@@ -1,0 +1,27 @@
+meta:
+  name:
+    short: kuzco
+    full: computer vision with kuzco
+  link:
+    github: https://github.com/frankiethull/kuzco
+
+logo:
+  images:
+    kuzco-hex: ../man/figures/logo.png
+    small: kuzco-hex
+
+color:
+  palette:
+    orange: "#B1501D"
+    white: "#FFFFFF"
+    black: "#000000"
+    dark-blue: "#044D53"
+    med-blue: "#10696F"
+    light-blue: "#7EC7CD"
+
+  foreground: black
+  background: white
+  primary: dark-blue
+  secondary: med-blue
+  light: light-blue
+  dark: orange
