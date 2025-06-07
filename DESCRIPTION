@@ -1,6 +1,6 @@
 Package: kuzco
 Title: LLM image classification using ollama in R
-Version: 0.0.1.5
+Version: 0.0.1.6
 Authors@R: c(
     person("Frank", "Hull", , "frankiethull@gmail.com", role = c("aut", "cre")),
     person("Johannes", "Breuer", , "johannes.breuer@gesis.org", role = c("ctb"), comment = c(ORCID = "0000-0001-5906-7873"))
@@ -10,8 +10,14 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Depends:
+    R (>= 4.1.0)
 Imports: 
     dplyr,
     ellmer,
     jsonlite,
     ollamar
+Suggests: 
+    knitr,
+    quarto
+VignetteBuilder: quarto
