@@ -9,6 +9,7 @@ llm_image_recognition(
   image = system.file("img/test_img.jpg", package = "kuzco"),
   recognize_object = "face",
   backend = "ellmer",
+  additional_prompt = "",
   ...
 )
 }
@@ -19,7 +20,9 @@ llm_image_recognition(
 
 \item{recognize_object}{an item you want to LLM to look for}
 
-\item{backend}{either 'ollamar' or 'ellmer'}
+\item{backend}{either 'ollamar' or 'ellmer', note that 'ollamar' suggests structured outputs while 'ellmer' enforces structured outputs}
+
+\item{additional_prompt}{text to append to the image prompt}
 
 \item{...}{a pass through for other generate args and model args like temperature. set the temperature to 0 for more deterministic output}
 }
