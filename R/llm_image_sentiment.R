@@ -2,8 +2,10 @@
 #'
 #' @param llm_model  a local LLM model pulled from ollama
 #' @param image      a local image path that has a jpeg, jpg, or png
-#' @param backend    either 'ollamar' or 'ellmer'
+#' @param backend    either 'ollamar' or 'ellmer', note that 'ollamar' suggests structured outputs while 'ellmer' enforces structured outputs
+#' @param additional_prompt text to append to the image prompt
 #' @param ...        a pass through for other generate args and model args like temperature. set the temperature to 0 for more deterministic output
+#'
 #'
 #' @return a df with image_sentiment, image_score, sentiment_description, image_keywords
 #' @export
@@ -11,10 +13,12 @@ llm_image_sentiment <- \(
 	llm_model = "llava-phi3",
 	image = system.file("img/test_img.jpg", package = "kuzco"),
 	backend = "ellmer",
+	additional_prompt = "",
 	...
 ) {
 	system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt-sentiment.md")) |> paste(collapse = "\n")
 	image_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/image-prompt.md")) |> paste(collapse = "\n")
+	image_prompt <- paste0(additional_prompt, image_prompt)
 
 	if (backend == 'ollamar') {
 		kuzco:::ollamar_image_sentiment(

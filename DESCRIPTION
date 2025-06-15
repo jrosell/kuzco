@@ -1,6 +1,6 @@
 Package: kuzco
 Title: LLM image classification using ollama in R
-Version: 0.0.1.6
+Version: 0.0.1.7
 Authors@R: c(
     person("Frank", "Hull", , "frankiethull@gmail.com", role = c("aut", "cre")),
     person("Johannes", "Breuer", , "johannes.breuer@gesis.org", role = c("ctb"), comment = c(ORCID = "0000-0001-5906-7873"))
@@ -15,9 +15,16 @@ Depends:
 Imports: 
     dplyr,
     ellmer,
+    gt,
+    gtExtras,
+    imager,
     jsonlite,
-    ollamar
+    ollamar,
+    stringr,
+    tidyr
 Suggests: 
     knitr,
-    quarto
+    quarto,
+    shiny,
+    bslib
 VignetteBuilder: quarto
