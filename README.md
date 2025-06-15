@@ -13,8 +13,8 @@ assistant, giving local models guidance on classifying images and return
 structured data. The goal is to standardize outputs for image
 classification and use LLMs as an alternative option to keras or torch.
 
-{kuzco} currently supports: classification, recognition, sentiment, and
-text extraction.
+{kuzco} currently supports: classification, recognition, sentiment, text
+extraction, alt-text creation, and **custom** computer vision tasks.
 
 ## Installation
 
@@ -84,14 +84,18 @@ llm_results |> str()
 llm_emotion <- llm_image_sentiment(llm_model = "qwen2.5vl", image = test_img)
 
 llm_emotion |> str()
-#> 'data.frame':    1 obs. of  4 variables:
-#>  $ image_sentiment      : chr "positive"
-#>  $ image_score          : num 0.9
-#>  $ sentiment_description: chr "The image evokes a very positive emotional response, particularly warmth and joy due to the adorable puppy."
-#>  $ image_keywords       : chr "cute, fluffy, happy"
+#> 'data.frame':    0 obs. of  4 variables:
+#>  $ image_sentiment      : chr 
+#>  $ image_score          : num 
+#>  $ sentiment_description: chr 
+#>  $ image_keywords       : chr
 ```
 
 ### llm for image recognition:
+
+note that the backend of kuzco is flexible as well. This allows users to
+specify between ‘ollamar’, which suggests structured outputs, while
+‘ellmer’ enforces structured outputs.
 
 ``` r
 llm_detection <- llm_image_recognition(llm_model = "qwen2.5vl", 
@@ -106,3 +110,38 @@ llm_detection |> str()
 #>  $ object_description: chr "The nose is black and is located in the center of the image, slightly below the eyes."
 #>  $ object_location   : chr "center"
 ```
+
+## newer features
+
+### llm image customization:
+
+a new feature in kuzco, is a fully customizable function. This allows
+users to further test computer vision techniques without leaving the
+kuzco boilerplate.
+
+``` r
+llm_customized <- llm_image_custom(llm_model = "qwen2.5vl", 
+                                   image = test_img,
+                                   system_prompt = "you are a dog breed expert, you know all about dogs. 
+                                                    tell me the primary breed, secondary breed, and a brief description about both.",
+                                   image_prompt  = "tell me what kind of dog is in the image?",
+                                   example_df = data.frame(
+                                     dog_breed_primary = "hound",
+                                     dog_breed_secondary = "corgi",
+                                     dog_breed_information = "information about the primary and secondary breed"
+                                   ))
+
+llm_customized |> str()
+#> 'data.frame':    1 obs. of  3 variables:
+#>  $ dog_breed_primary    : chr "rottweiler"
+#>  $ dog_breed_secondary  : chr ""
+#>  $ dog_breed_information: chr "The primary breed shown in the image is a Rottweiler, known for its dark brown coloration with rust-colored mar"| __truncated__
+```
+
+### additional enhancements:
+
+kuzco now has `view_image` & `view_llm_results` functions within the
+package, making it easy to view images and display llm results. In
+addition to this, kuzco now features `kuzco_app` a fully functioning
+shiny application within the package. Making it even easier to do
+computer vision with LLMs in R.

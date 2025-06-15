@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 {kuzco} is a simple vision boilerplate built for ollama in R, on top of {ollamar} & {ellmer}. {kuzco} is designed as a computer vision assistant, giving local models guidance on classifying images and return structured data. The goal is to standardize outputs for image classification and use LLMs as an alternative option to keras or torch. 
 
-{kuzco} currently supports: classification, recognition, sentiment, and text extraction.
+{kuzco} currently supports: classification, recognition, sentiment, text extraction, alt-text creation, and **custom** computer vision tasks.
 
 ## Installation
 
@@ -67,6 +67,8 @@ llm_emotion |> str()
 ```
 
 ### llm for image recognition:
+
+note that the backend of kuzco is flexible as well. This allows users to specify between 'ollamar', which suggests structured outputs, while 'ellmer' enforces structured outputs. 
 ```{r}
 llm_detection <- llm_image_recognition(llm_model = "qwen2.5vl", 
                                        image = test_img,
@@ -75,3 +77,28 @@ llm_detection <- llm_image_recognition(llm_model = "qwen2.5vl",
 
 llm_detection |> str()
 ```
+
+## newer features
+
+### llm image customization:
+
+a new feature in kuzco, is a fully customizable function. This allows users to further test computer vision techniques without leaving the kuzco boilerplate. 
+```{r}
+llm_customized <- llm_image_custom(llm_model = "qwen2.5vl", 
+                                   image = test_img,
+                                   system_prompt = "you are a dog breed expert, you know all about dogs. 
+                                                    tell me the primary breed, secondary breed, and a brief description about both.",
+                                   image_prompt  = "tell me what kind of dog is in the image?",
+                                   example_df = data.frame(
+                                     dog_breed_primary = "hound",
+                                     dog_breed_secondary = "corgi",
+                                     dog_breed_information = "information about the primary and secondary breed"
+                                   ))
+
+llm_customized |> str()
+
+```
+
+### additional enhancements:
+
+kuzco now has `view_image` & `view_llm_results` functions within the package, making it easy to view images and display llm results. In addition to this, kuzco now features `kuzco_app` a fully functioning shiny application within the package. Making it even easier to do computer vision with LLMs in R. 
