@@ -3,7 +3,8 @@
 #' @param llm_model         a local LLM model pulled from ollama
 #' @param image             a local image path that has a jpeg, jpg, or png
 #' @param recognize_object  an item you want to LLM to look for
-#' @param backend           either 'ollamar' or 'ellmer'
+#' @param backend           either 'ollamar' or 'ellmer', note that 'ollamar' suggests structured outputs while 'ellmer' enforces structured outputs
+#' @param additional_prompt text to append to the image prompt
 #' @param ...               a pass through for other generate args and model args like temperature. set the temperature to 0 for more deterministic output
 #'
 #' @return a df with object_recognized, object_count, object_description, object_location
@@ -13,10 +14,12 @@ llm_image_recognition <- \(
 	image = system.file("img/test_img.jpg", package = "kuzco"),
 	recognize_object = "face",
 	backend = "ellmer",
+	additional_prompt = "",
 	...
 ) {
 	system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt-recognition.md")) |> paste(collapse = "\n")
 	image_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/image-prompt.md")) |> paste(collapse = "\n")
+	image_prompt <- paste0(additional_prompt, image_prompt)
 
 	image_prompt <- base::gsub(
 		pattern = ":",
