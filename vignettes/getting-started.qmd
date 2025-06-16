@@ -25,7 +25,7 @@ my_image <- file.path(system.file(package = "kuzco", "img/test_img.jpg"))
 
 
 #### view the input image
-to make things easy, there is a new function in kuzco to make it easy to see an image, `view_image`. 
+to make things easy, there is a new function in kuzco to see an image, `view_image`. 
 ```{r}
 my_image |>
   view_image()
@@ -33,14 +33,15 @@ my_image |>
 
 
 #### apply computer vision 
-decide on an llm_image_* functtion to call: 
- - llm_image_alt_text
- - llm_image_classification
- - llm_image_extract_text
- - llm_image_recognition   
- - llm_image_sentiment    
- - llm_image_custom   
-
+decide on an llm_image_* function to call:     
+ - llm_image_alt_text     
+ - llm_image_classification     
+ - llm_image_extract_text       
+ - llm_image_recognition         
+ - llm_image_sentiment         
+ - llm_image_custom        
+       
+       
 ```r
  llm_results <- 
    my_image |>
