@@ -6,7 +6,7 @@
 #' @param additional_prompt text to append to the image prompt
 #' @param ...               a pass through for other generate args and model args like temperature. set the temperature to 0 for more deterministic output
 #'
-#' @return a df with text
+#' @return a df with text and a confidence score
 #' @export
 llm_image_extract_text <- \(
 	llm_model = "llava-phi3",
@@ -62,7 +62,8 @@ ollamar_image_extract_text <- \(
 
 	llm_df <- llm_parsed |>
 		as.data.frame() |>
-		dplyr::select("text" = dplyr::contains("text"))
+		dplyr::select("text" = dplyr::contains("text"),
+		              "confidence_score" = dplyr::contains("confiden"))
 
 	return(llm_df)
 }
@@ -76,7 +77,8 @@ ellmer_image_extract_text <- \(llm_model = llm_model, image_prompt = image_promp
 	)
 
 	type_image_class <- ellmer::type_object(
-		text = ellmer::type_string()
+		text = ellmer::type_string(),
+		confidence_score = ellmer::type_number()
 	)
 
 	image_summary <- ellmer::type_object(

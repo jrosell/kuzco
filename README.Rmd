@@ -77,6 +77,23 @@ llm_detection <- llm_image_recognition(llm_model = "qwen2.5vl",
 
 llm_detection |> str()
 ```
+### llm for image text extraction:
+
+kuzco is also useful for OCR tasks, extracting text from images is showcased below:
+```{r}
+text_img <- file.path(system.file(package = "kuzco"), "img/text_img.jpg") 
+
+text_img |> view_image()
+```
+
+```{r}
+llm_extract_txt <- llm_image_extract_text(llm_model = "qwen2.5vl", 
+                                          image = text_img,
+                                          backend  = "ellmer")
+
+llm_extract_txt |> str()
+```
+
 
 ## newer features
 
