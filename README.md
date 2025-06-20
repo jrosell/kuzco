@@ -84,11 +84,11 @@ llm_results |> str()
 llm_emotion <- llm_image_sentiment(llm_model = "qwen2.5vl", image = test_img)
 
 llm_emotion |> str()
-#> 'data.frame':    0 obs. of  4 variables:
-#>  $ image_sentiment      : chr 
-#>  $ image_score          : num 
-#>  $ sentiment_description: chr 
-#>  $ image_keywords       : chr
+#> 'data.frame':    1 obs. of  4 variables:
+#>  $ image_sentiment      : chr "positive"
+#>  $ image_score          : num 0.7
+#>  $ sentiment_description: chr "The image evokes a sense of warmth and companionship."
+#>  $ image_keywords       : chr "cute, friendly, fluffy"
 ```
 
 ### llm for image recognition:
@@ -109,6 +109,30 @@ llm_detection |> str()
 #>  $ object_count      : int 1
 #>  $ object_description: chr "The nose is black and is located in the center of the image, slightly below the eyes."
 #>  $ object_location   : chr "center"
+```
+
+### llm for image text extraction:
+
+kuzco is also useful for OCR tasks, extracting text from images is
+showcased below:
+
+``` r
+text_img <- file.path(system.file(package = "kuzco"), "img/text_img.jpg") 
+
+text_img |> view_image()
+```
+
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+
+``` r
+llm_extract_txt <- llm_image_extract_text(llm_model = "qwen2.5vl", 
+                                          image = text_img,
+                                          backend  = "ellmer")
+
+llm_extract_txt |> str()
+#> 'data.frame':    3 obs. of  2 variables:
+#>  $ text            : chr  "Picture of of Odin" "as a puppy" "circa Q4 2019"
+#>  $ confidence_score: num  0.9 0.95 0.9
 ```
 
 ## newer features
@@ -133,9 +157,9 @@ llm_customized <- llm_image_custom(llm_model = "qwen2.5vl",
 
 llm_customized |> str()
 #> 'data.frame':    1 obs. of  3 variables:
-#>  $ dog_breed_primary    : chr "rottweiler"
-#>  $ dog_breed_secondary  : chr ""
-#>  $ dog_breed_information: chr "The primary breed shown in the image is a Rottweiler, known for its dark brown coloration with rust-colored mar"| __truncated__
+#>  $ dog_breed_primary    : chr "Cane Corso"
+#>  $ dog_breed_secondary  : chr "Boxer"
+#>  $ dog_breed_information: chr "The dog in the image appears to be a mix of a Cane Corso and a Boxer. Cane Corsos are large dogs with a short c"| __truncated__
 ```
 
 ### additional enhancements:
