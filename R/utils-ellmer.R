@@ -3,13 +3,15 @@
 #' a minimal wrapper function to switch which provider is used for each llm_image* function
 #' when ellmer backend is selected, ollamar only supports ollama
 #'
-#' @param provider a provider, such as "ollama", or "anthropic" or "gemini"
+#' @param provider a provider, such as "ollama", or "claude", or "github"
 #'
 chat_ellmer <- \(provider = "ollama"){
 
   # fmt: skip
   chat_providers <- list(
+    # ~ LOCAL ~
     "ollama"           = ellmer::chat_ollama,
+    # ~ CLOUD ~
     "anthropic"        = ellmer::chat_anthropic,
     "aws_bedrock"      = ellmer::chat_aws_bedrock,
     "azure"            = ellmer::chat_azure,
@@ -23,7 +25,7 @@ chat_ellmer <- \(provider = "ollama"){
     "deepseek"         = ellmer::chat_deepseek,
     "gemini"           = ellmer::chat_gemini,
     "github"           = ellmer::chat_github,
-    "gemini"           = ellmer::chat_google_gemini,
+    "google_gemini"    = ellmer::chat_google_gemini,
     "google_vertex"    = ellmer::chat_google_vertex,
     "groq"             = ellmer::chat_groq,
     "huggingface"      = ellmer::chat_huggingface,
