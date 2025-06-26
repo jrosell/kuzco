@@ -4,15 +4,19 @@
 #' @param image      a local image path that has a jpeg, jpg, or png
 #' @param backend    either 'ollamar' or 'ellmer', note that 'ollamar' suggests structured outputs while 'ellmer' enforces structured outputs
 #' @param additional_prompt text to append to the image prompt
+#' @param provider   for `backend = 'ollamar'`, `provider` is ignored. for `backend = 'ellmer'`,
+#'                   `provider` refers to the `ellmer::chat_*` providers and can be used to switch
+#'                   from "ollama" to other providers such as "perplexity"
 #' @param ...        a pass through for other generate args and model args like temperature
 #'
 #' @return a df with image_classification, primary_object, secondary_object, image_description, image_colors, image_proba_names, image_proba_values
 #' @export
 llm_image_classification <- \(
-	llm_model = "llava-phi3",
+	llm_model = "qwen2.5vl",
 	image = system.file("img/test_img.jpg", package = "kuzco"),
 	backend = "ellmer",
 	additional_prompt = "",
+	provider = "ollama",
 	...
 ) {
 	system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt-classification.md")) |>
@@ -34,6 +38,7 @@ llm_image_classification <- \(
 			image_prompt = image_prompt,
 			image = image,
 			system_prompt = system_prompt,
+			provider = provider,
 			...
 		)
 	} else {
@@ -81,10 +86,13 @@ ellmer_image_classification <- \(
 	image_prompt = image_prompt,
 	image = image,
 	system_prompt = system_prompt,
+	provider = provider,
 	...
 ) {
-	# add a switch for other llm providers ?
-	chat <- ellmer::chat_ollama(
+
+  chat_provider <- chat_ellmer(provider = provider)
+
+	chat <- chat_provider(
 		model = llm_model,
 		system_prompt = system_prompt,
 		...
