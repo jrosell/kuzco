@@ -5,10 +5,11 @@
 \title{Image OCR for Text Extraction using LLMs}
 \usage{
 llm_image_extract_text(
-  llm_model = "llava-phi3",
+  llm_model = "qwen2.5vl",
   image = system.file("img/text_img.jpg", package = "kuzco"),
   backend = "ellmer",
   additional_prompt = "",
+  provider = "ollama",
   ...
 )
 }
@@ -21,10 +22,14 @@ llm_image_extract_text(
 
 \item{additional_prompt}{text to append to the image prompt}
 
+\item{provider}{for \code{backend = 'ollamar'}, \code{provider} is ignored. for \code{backend = 'ellmer'},
+\code{provider} refers to the \verb{ellmer::chat_*} providers and can be used to switch
+from "ollama" to other providers such as "perplexity"}
+
 \item{...}{a pass through for other generate args and model args like temperature. set the temperature to 0 for more deterministic output}
 }
 \value{
-a df with text
+a df with text and a confidence score
 }
 \description{
 Image OCR for Text Extraction using LLMs

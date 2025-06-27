@@ -5,7 +5,7 @@
 \title{Customized Vision using LLMs}
 \usage{
 llm_image_custom(
-  llm_model = "llava-phi3",
+  llm_model = "qwen2.5vl",
   image = system.file("img/test_img.jpg", package = "kuzco"),
   backend = "ellmer",
   system_prompt =
@@ -13,6 +13,7 @@ llm_image_custom(
   image_prompt = "please return JSON for image according to the example format supplied",
   example_df = data.frame(image_sentiment = "positive", image_score = 0.6,
     sentiment_description = "image envokes a positive emotional response."),
+  provider = "ollama",
   ...
 )
 }
@@ -28,6 +29,10 @@ llm_image_custom(
 \item{image_prompt}{anything you want to really remind the llm about.}
 
 \item{example_df}{an example data.frame to show the llm what you want returned \emph{note this will be converted to JSON for the LLM}.}
+
+\item{provider}{for \code{backend = 'ollamar'}, \code{provider} is ignored. for \code{backend = 'ellmer'},
+\code{provider} refers to the \verb{ellmer::chat_*} providers and can be used to switch
+from "ollama" to other providers such as "perplexity"}
 
 \item{...}{a pass through for other generate args and model args like temperature}
 }

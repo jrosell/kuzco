@@ -6,12 +6,15 @@
 #' @param system_prompt overarching assistant description, *please note that the LLM should be told to return as JSON while kuzco will handle the conversions to and from JSON*
 #' @param image_prompt anything you want to really remind the llm about.
 #' @param example_df an example data.frame to show the llm what you want returned *note this will be converted to JSON for the LLM*.
+#' @param provider   for `backend = 'ollamar'`, `provider` is ignored. for `backend = 'ellmer'`,
+#'                   `provider` refers to the `ellmer::chat_*` providers and can be used to switch
+#'                   from "ollama" to other providers such as "perplexity"
 #' @param ...        a pass through for other generate args and model args like temperature
 #'
 #' @return a customized return based on example_df for custom control
 #' @export
 llm_image_custom <- \(
-  llm_model = "llava-phi3",
+  llm_model = "qwen2.5vl",
   image = system.file("img/test_img.jpg", package = "kuzco"),
   backend = "ellmer",
   system_prompt = "You are a terse assistant specializing in computer vision image sentiment.
@@ -28,6 +31,7 @@ llm_image_custom <- \(
     image_score           = .6,
     sentiment_description = "image envokes a positive emotional response."
     ),
+  provider = "ollama",
   ...
 ) {
 
@@ -54,6 +58,7 @@ llm_image_custom <- \(
       image = image,
       system_prompt = system_prompt,
       example_df  = example_df,
+      provider = provider,
       ...
     )
   } else {
@@ -94,10 +99,13 @@ ellmer_image_custom <- \(
   image = image,
   system_prompt = system_prompt,
   example_df = example_df,
+  provider = provider,
   ...
 ) {
-  # add a switch for other llm providers ?
-  chat <- ellmer::chat_ollama(
+
+  chat_provider <- chat_ellmer(provider = provider)
+
+  chat <- chat_provider(
     model = llm_model,
     system_prompt = system_prompt,
     ...

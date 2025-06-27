@@ -5,16 +5,20 @@
 #' @param recognize_object  an item you want to LLM to look for
 #' @param backend           either 'ollamar' or 'ellmer', note that 'ollamar' suggests structured outputs while 'ellmer' enforces structured outputs
 #' @param additional_prompt text to append to the image prompt
+#' @param provider   for `backend = 'ollamar'`, `provider` is ignored. for `backend = 'ellmer'`,
+#'                   `provider` refers to the `ellmer::chat_*` providers and can be used to switch
+#'                   from "ollama" to other providers such as "perplexity"
 #' @param ...               a pass through for other generate args and model args like temperature. set the temperature to 0 for more deterministic output
 #'
 #' @return a df with object_recognized, object_count, object_description, object_location
 #' @export
 llm_image_recognition <- \(
-	llm_model = "llava-phi3",
+	llm_model = "qwen2.5vl",
 	image = system.file("img/test_img.jpg", package = "kuzco"),
 	recognize_object = "face",
 	backend = "ellmer",
 	additional_prompt = "",
+	provider = "ollama",
 	...
 ) {
 	system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt-recognition.md")) |> paste(collapse = "\n")
@@ -41,6 +45,7 @@ llm_image_recognition <- \(
 			image_prompt = image_prompt,
 			image = image,
 			system_prompt = system_prompt,
+			provider = provider,
 			...
 		)
 	} else {
@@ -68,10 +73,17 @@ ollamar_image_recognition <- \(llm_model = llm_model, image_prompt = image_promp
 	return(llm_df)
 }
 
-ellmer_image_recognition <- \(llm_model = llm_model, image_prompt = image_prompt, image = image, system_prompt = system_prompt, ...) {
-	# add a switch for other llm providers ?
-	chat <- ellmer::chat_ollama(
-		model = llm_model,
+ellmer_image_recognition <- \(llm_model = llm_model,
+                              image_prompt = image_prompt,
+                              image = image,
+                              system_prompt = system_prompt,
+                              provider = provider,
+                              ...) {
+
+  chat_provider <- chat_ellmer(provider = provider)
+
+  chat <- chat_provider(
+    model = llm_model,
 		system_prompt = system_prompt,
 		...
 	)

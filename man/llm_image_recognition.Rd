@@ -5,11 +5,12 @@
 \title{Image Recognition using LLMs}
 \usage{
 llm_image_recognition(
-  llm_model = "llava-phi3",
+  llm_model = "qwen2.5vl",
   image = system.file("img/test_img.jpg", package = "kuzco"),
   recognize_object = "face",
   backend = "ellmer",
   additional_prompt = "",
+  provider = "ollama",
   ...
 )
 }
@@ -23,6 +24,10 @@ llm_image_recognition(
 \item{backend}{either 'ollamar' or 'ellmer', note that 'ollamar' suggests structured outputs while 'ellmer' enforces structured outputs}
 
 \item{additional_prompt}{text to append to the image prompt}
+
+\item{provider}{for \code{backend = 'ollamar'}, \code{provider} is ignored. for \code{backend = 'ellmer'},
+\code{provider} refers to the \verb{ellmer::chat_*} providers and can be used to switch
+from "ollama" to other providers such as "perplexity"}
 
 \item{...}{a pass through for other generate args and model args like temperature. set the temperature to 0 for more deterministic output}
 }

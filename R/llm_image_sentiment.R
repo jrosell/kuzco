@@ -4,16 +4,20 @@
 #' @param image      a local image path that has a jpeg, jpg, or png
 #' @param backend    either 'ollamar' or 'ellmer', note that 'ollamar' suggests structured outputs while 'ellmer' enforces structured outputs
 #' @param additional_prompt text to append to the image prompt
+#' @param provider   for `backend = 'ollamar'`, `provider` is ignored. for `backend = 'ellmer'`,
+#'                   `provider` refers to the `ellmer::chat_*` providers and can be used to switch
+#'                   from "ollama" to other providers such as "perplexity"
 #' @param ...        a pass through for other generate args and model args like temperature. set the temperature to 0 for more deterministic output
 #'
 #'
 #' @return a df with image_sentiment, image_score, sentiment_description, image_keywords
 #' @export
 llm_image_sentiment <- \(
-	llm_model = "llava-phi3",
+	llm_model = "qwen2.5vl",
 	image = system.file("img/test_img.jpg", package = "kuzco"),
 	backend = "ellmer",
 	additional_prompt = "",
+	provider = "ollama",
 	...
 ) {
 	system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt-sentiment.md")) |> paste(collapse = "\n")
@@ -34,6 +38,7 @@ llm_image_sentiment <- \(
 			image_prompt = image_prompt,
 			image = image,
 			system_prompt = system_prompt,
+			provider = provider,
 			...
 		)
 	} else {
@@ -60,10 +65,17 @@ ollamar_image_sentiment <- \(llm_model = llm_model, image_prompt = image_prompt,
 	return(llm_df)
 }
 
-ellmer_image_sentiment <- \(llm_model = llm_model, image_prompt = image_prompt, image = image, system_prompt = system_prompt, ...) {
-	# add a switch for other llm providers ?
-	chat <- ellmer::chat_ollama(
-		model = llm_model,
+ellmer_image_sentiment <- \(llm_model = llm_model,
+                            image_prompt = image_prompt,
+                            image = image,
+                            system_prompt = system_prompt,
+                            provider = provider,
+                            ...) {
+
+  chat_provider <- chat_ellmer(provider = provider)
+
+  chat <- chat_provider(
+    model = llm_model,
 		system_prompt = system_prompt,
 		...
 	)
