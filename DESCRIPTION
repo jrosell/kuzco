@@ -26,5 +26,6 @@ Suggests:
     knitr,
     quarto,
     shiny,
-    bslib
-VignetteBuilder: quarto
+    bslib,
+    rmarkdown
+VignetteBuilder: quarto, knitr
