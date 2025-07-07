@@ -29,3 +29,4 @@ Suggests:
     bslib,
     rmarkdown
 VignetteBuilder: quarto, knitr
+URL: https://frankiethull.github.io/kuzco/

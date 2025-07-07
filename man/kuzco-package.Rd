@@ -10,6 +10,13 @@
 
 This package is a designed to use local models for image classification. The prompts and functions are designed to take an input image and supply classification information as an output.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://frankiethull.github.io/kuzco/}
+}
+
+}
 \author{
 \strong{Maintainer}: Frank Hull \email{frankiethull@gmail.com}
 
