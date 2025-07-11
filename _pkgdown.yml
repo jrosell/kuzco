@@ -1,4 +1,6 @@
 url: https://frankiethull.github.io/kuzco/
 template:
-  bootstrap: 5
+  bslib:
+    version: 5
+    brand: _brand.yml
 
