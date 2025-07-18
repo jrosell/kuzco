@@ -27,3 +27,4 @@ You must populate the following JSON object.
   "sentiment_description": "The bright colors and dynamic action of the festival evoke a sense of excitement and joy.",
   "image_keywords": "energetic, celebratory, vibrant, happy"
 }
+```

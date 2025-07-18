@@ -18,9 +18,10 @@ You must populate the following JSON object.
 
 ---
 
-### Example Output (Text Found)
+### Example Output (For structure reference ONLY)
 ```json
 {
   "text": "CAUTION\nFLOOR MAY BE SLIPPERY WHEN WET",
   "confidence_score": 0.98
 }
+```

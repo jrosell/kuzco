@@ -24,7 +24,7 @@ You must populate the following JSON object for a successful analysis.
 ---
 
 ### Example Output (For structure reference ONLY)
-User provides an image of a dog catching a frisbee in a park.
+*User provides an image of a dog catching a frisbee in a park.*
 ```json
 {
   "text": "A golden retriever leaps to catch a red frisbee in a sunny, grassy park."
