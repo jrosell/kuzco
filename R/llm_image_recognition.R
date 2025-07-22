@@ -27,7 +27,7 @@ llm_image_recognition <- \(
 
 	image_prompt <- base::gsub(
 		pattern = ":",
-		replacement = paste0(", the object to look for is a ", recognize_object, ":"),
+		replacement = paste0(", the `object_query` is a ", recognize_object, ":"),
 		x = image_prompt
 	)
 

@@ -1,1 +1,1 @@
-please return JSON for image according to system prompt:  
+please return JSON for image according to system prompt in English:  
