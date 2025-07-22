@@ -23,6 +23,7 @@ Useful links:
 Other contributors:
 \itemize{
   \item Johannes Breuer \email{johannes.breuer@gesis.org} (\href{https://orcid.org/0000-0001-5906-7873}{ORCID}) [contributor]
+  \item Jordi Rosell \email{jroselln@gmail.com} (\href{https://orcid.org/0000-0002-4349-1458}{ORCID}) [contributor]
 }
 
 }

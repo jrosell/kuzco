@@ -72,7 +72,6 @@ chat_providers <- data.frame(
     "claude",
     "cloudfare",
     "cortex",
-    "cortex_analyst",
     "databricks",
     "deepseek",
     "gemini",
