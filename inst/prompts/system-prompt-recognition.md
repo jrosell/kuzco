@@ -43,9 +43,9 @@ You must populate the following JSON object.
 *User prompt: "the `object_query` is a dog" (Image contains a cat sleeping on a sofa).*
 ```json
 {
-  "is_present": FALSE,
-  "count": 0,
-  "description": "The object 'dog' was not found in the image.",
-  "locations": ""
+  "object_recognized": FALSE,
+  "object_count": 0,
+  "object_description": "The object 'dog' was not found in the image.",
+  "object_location": ""
 }
 ```
