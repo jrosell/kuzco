@@ -1,12 +1,13 @@
 #' Image Alt Text using LLMs
 #'
-#' @param llm_model         a local LLM model pulled from ollama
+#' @param llm_model         a local LLM model either pulled from ollama or hosted
 #' @param image             a local image path that has a jpeg, jpg, or png
 #' @param backend           either 'ellmer' or 'ollamar', note that 'ollamar' suggests structured outputs while 'ellmer' enforces structured outputs
 #' @param additional_prompt text to append to the image prompt
 #' @param provider   for `backend = 'ollamar'`, `provider` is ignored. for `backend = 'ellmer'`,
 #'                   `provider` refers to the `ellmer::chat_*` providers and can be used to switch
 #'                   from "ollama" to other providers such as "perplexity"
+#' @param language          a language to guide the LLM model outputs
 #' @param ...               a pass through for other generate args and model args like temperature. set the temperature to 0 for more deterministic output
 #'
 #' @return a df with text
@@ -17,11 +18,18 @@ llm_image_alt_text <- \(
 	backend = 'ellmer',
 	additional_prompt = "",
 	provider = "ollama",
+	language = "English",
 	...
 ) {
 	system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt-alt-text.md")) |> paste(collapse = "\n")
 	image_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/image-prompt.md")) |> paste(collapse = "\n")
 	image_prompt <- paste0(additional_prompt, image_prompt)
+
+	image_prompt <- base::gsub(
+	  pattern = "[INPUT_LANGUAGE]",
+	  replacement = language,
+	  x = image_prompt
+	)
 
 	if (backend == 'ollamar') {
 		kuzco:::ollamar_image_alt_text(
