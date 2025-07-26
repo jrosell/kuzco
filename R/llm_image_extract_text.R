@@ -7,6 +7,7 @@
 #' @param provider   for `backend = 'ollamar'`, `provider` is ignored. for `backend = 'ellmer'`,
 #'                   `provider` refers to the `ellmer::chat_*` providers and can be used to switch
 #'                   from "ollama" to other providers such as "perplexity"
+#' @param language          a language to guide the LLM model outputs
 #' @param ...               a pass through for other generate args and model args like temperature. set the temperature to 0 for more deterministic output
 #'
 #' @return a df with text and a confidence score
@@ -17,11 +18,19 @@ llm_image_extract_text <- \(
 	backend = "ellmer",
 	additional_prompt = "",
 	provider = "ollama",
+	language = "English",
 	...
 ) {
 	system_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/system-prompt-extraction.md")) |> paste(collapse = "\n")
 	image_prompt <- base::readLines(paste0(.libPaths()[1], "/kuzco/prompts/image-prompt.md")) |> paste(collapse = "\n")
 	image_prompt <- paste0(additional_prompt, image_prompt)
+
+	image_prompt <- base::gsub(
+	  pattern = "[INPUT_LANGUAGE]",
+	  replacement = language,
+	  x = image_prompt
+	)
+
 
 	if (backend == 'ollamar') {
 		kuzco:::ollamar_image_extract_text(
