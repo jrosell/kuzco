@@ -1,6 +1,6 @@
 #' Customized Vision using LLMs
 #'
-#' @param llm_model  a local LLM model pulled from ollama
+#' @param llm_model  a local LLM model either pulled from ollama or hosted
 #' @param image      a local image path that has a jpeg, jpg, or png
 #' @param backend    either 'ollamar' or 'ellmer'
 #' @param system_prompt overarching assistant description, *please note that the LLM should be told to return as JSON while kuzco will handle the conversions to and from JSON*

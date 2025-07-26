@@ -1,6 +1,6 @@
 #' Image Sentiment using LLMs
 #'
-#' @param llm_model  a local LLM model pulled from ollama
+#' @param llm_model  a local LLM model either pulled from ollama or hosted
 #' @param image      a local image path that has a jpeg, jpg, or png
 #' @param backend    either 'ollamar' or 'ellmer', note that 'ollamar' suggests structured outputs while 'ellmer' enforces structured outputs
 #' @param additional_prompt text to append to the image prompt
