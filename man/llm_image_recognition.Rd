@@ -11,11 +11,12 @@ llm_image_recognition(
   backend = "ellmer",
   additional_prompt = "",
   provider = "ollama",
+  language = "English",
   ...
 )
 }
 \arguments{
-\item{llm_model}{a local LLM model pulled from ollama}
+\item{llm_model}{a local LLM model either pulled from ollama or hosted}
 
 \item{image}{a local image path that has a jpeg, jpg, or png}
 
@@ -28,6 +29,8 @@ llm_image_recognition(
 \item{provider}{for \code{backend = 'ollamar'}, \code{provider} is ignored. for \code{backend = 'ellmer'},
 \code{provider} refers to the \verb{ellmer::chat_*} providers and can be used to switch
 from "ollama" to other providers such as "perplexity"}
+
+\item{language}{a language to guide the LLM model outputs}
 
 \item{...}{a pass through for other generate args and model args like temperature. set the temperature to 0 for more deterministic output}
 }

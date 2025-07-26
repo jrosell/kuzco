@@ -53,7 +53,7 @@ decide on an llm_image_* function to call:
  easily view the results from kuzco:
 ```r
 llm_results |>
-  view_llm_results() |>
+  view_llm_results() 
 ```
 
 ## computer vision app

@@ -18,7 +18,7 @@ llm_image_custom(
 )
 }
 \arguments{
-\item{llm_model}{a local LLM model pulled from ollama}
+\item{llm_model}{a local LLM model either pulled from ollama or hosted}
 
 \item{image}{a local image path that has a jpeg, jpg, or png}
 
